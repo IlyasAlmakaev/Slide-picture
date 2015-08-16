@@ -20,6 +20,7 @@
     NSData *data = [[NSFileManager defaultManager] contentsAtPath:filePath];
     NSError *error;
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+
     AppDelegate *appDelegate =[AppDelegate new];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"PicturesInfo"];
     NSMutableArray *countPicture = [[appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
@@ -29,18 +30,10 @@
         if ([NSJSONSerialization isValidJSONObject:json])
             {
             NSArray *dataPics = [json objectForKey:@"picture"]; // Все данные из json-файла
-            NSMutableArray *idPics = [NSMutableArray new];      // массив для id
-            NSMutableArray *numberPics = [NSMutableArray new];  // массив для номеров картинок
-            NSMutableArray *urlPics = [NSMutableArray new];     // массив для url картинок
+
 
             [dataPics enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) // Перебор массива данных
              {
-             // Группировка данных для массивов
-
-             [idPics addObject:[obj objectForKey:@"id"]];
-             [numberPics addObject:[obj objectForKey:@"number"]];
-             [urlPics addObject:[obj objectForKey:@"url"]];
-
              // метод загрузки картинок из интернета
              [self loadPictureFromUrl:[obj objectForKey:@"url"] idPicture:[obj objectForKey:@"id"] numberPicture:[obj objectForKey:@"number"]];
 
@@ -77,7 +70,7 @@
         NSLog(@"Response: %@", imageData);
     [appDelegate.managedObjectContext save:&error];
     if (error)
-        {
+    {
         NSLog(@"Managed object context error: %@", error.description);  // описание ошибки
     }
 

@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "PictureViewController.h"
 
 @interface AppDelegate ()
 
@@ -15,8 +16,19 @@
 @implementation AppDelegate
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+    // create an instance of the view controller you want to be displayed first
+    PictureViewController *pictureViewController = [[PictureViewController alloc] initWithNibName:@"PictureViewController" bundle:nil];
+
+    UINavigationController *pictureNavigationController = [[UINavigationController alloc] initWithRootViewController:pictureViewController];
+
+    // set it as the root view controller of the application's window
+    [self.window setRootViewController:pictureNavigationController];
+
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
