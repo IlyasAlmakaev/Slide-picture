@@ -7,6 +7,7 @@
 //
 
 #import "Model.h"
+#import "AFNetworking.h"
 
 @implementation Model
 
@@ -31,6 +32,20 @@
          [idPics addObject:[obj objectForKey:@"id"]];
          [numberPics addObject:[obj objectForKey:@"number"]];
          [urlPics addObject:[obj objectForKey:@"url"]];
+
+         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[obj objectForKey:@"url"]]];
+         AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+         requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
+         [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"Response: %@", responseObject);
+                 //          _imageView.image = responseObject;
+
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"Image error: %@", error);
+         }];
+         [requestOperation start];
+
+
          }];
         NSLog(@"id info %@ number info %@ Url info %@", idPics, numberPics, urlPics);
         }
