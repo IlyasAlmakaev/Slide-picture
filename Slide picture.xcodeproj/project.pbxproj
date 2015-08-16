@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11D5358C1B8073A50086DBC6 /* PicturesInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D5358B1B8073A50086DBC6 /* PicturesInfo.m */; };
 		11E02D5F1B7FFA4D00A30721 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E02D5E1B7FFA4D00A30721 /* main.m */; };
 		11E02D621B7FFA4D00A30721 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E02D611B7FFA4D00A30721 /* AppDelegate.m */; };
 		11E02D651B7FFA4D00A30721 /* Slide_picture.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11E02D631B7FFA4D00A30721 /* Slide_picture.xcdatamodeld */; };
@@ -31,6 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		11D5358A1B8073A50086DBC6 /* PicturesInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicturesInfo.h; sourceTree = "<group>"; };
+		11D5358B1B8073A50086DBC6 /* PicturesInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicturesInfo.m; sourceTree = "<group>"; };
 		11E02D591B7FFA4D00A30721 /* Slide picture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Slide picture.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		11E02D5D1B7FFA4D00A30721 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11E02D5E1B7FFA4D00A30721 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -107,6 +110,8 @@
 				11E02D631B7FFA4D00A30721 /* Slide_picture.xcdatamodeld */,
 				11E02D5C1B7FFA4D00A30721 /* Supporting Files */,
 				11E02D851B7FFB6900A30721 /* Pictures.json */,
+				11D5358A1B8073A50086DBC6 /* PicturesInfo.h */,
+				11D5358B1B8073A50086DBC6 /* PicturesInfo.m */,
 			);
 			path = "Slide picture";
 			sourceTree = "<group>";
@@ -292,6 +297,7 @@
 			files = (
 				11E02D651B7FFA4D00A30721 /* Slide_picture.xcdatamodeld in Sources */,
 				11E02D621B7FFA4D00A30721 /* AppDelegate.m in Sources */,
+				11D5358C1B8073A50086DBC6 /* PicturesInfo.m in Sources */,
 				11E02D681B7FFA4D00A30721 /* ViewController.m in Sources */,
 				11E02D5F1B7FFA4D00A30721 /* main.m in Sources */,
 				11E02D891B7FFBA600A30721 /* Model.m in Sources */,
