@@ -12,7 +12,6 @@
 
 @interface PictureViewController ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageContainer;
 @property NSUInteger countPictures;
 
 @end
@@ -25,9 +24,11 @@
     Model *m = [Model new];
     [m dataPictures];
 
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsUser)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\ue00e" style:UIBarButtonItemStylePlain target:self action:@selector(addFavourite)];
 
 
-    self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
 
     self.pageController.dataSource = self;
 
@@ -37,8 +38,6 @@
 
     NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
     [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-
-  //  self.pageController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 30);
 
     [self addChildViewController:_pageController];
     [self.view addSubview:_pageController.view];
@@ -68,6 +67,8 @@
 {
     NSInteger index = ((ShowViewController *)viewController).index;
 
+    index++;
+    
     if (index == NSNotFound)
         {
         return nil;
@@ -80,7 +81,7 @@
         return nil;
         }
 
-index++;
+
 
     return [self viewControllerAtIndex:index];
 }

@@ -29,6 +29,7 @@
     [self.window setRootViewController:pictureNavigationController];
 
     [self.window makeKeyAndVisible];
+
     return YES;
 }
 

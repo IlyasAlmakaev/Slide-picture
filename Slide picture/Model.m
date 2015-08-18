@@ -25,7 +25,7 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"PicturesInfo"];
     NSMutableArray *countPicture = [[appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     // Проверка на содержание базы данных
-    if (!countPicture) {
+    if (![countPicture count]) {
         // Проверка на ошибку
         if ([NSJSONSerialization isValidJSONObject:json])
             {
