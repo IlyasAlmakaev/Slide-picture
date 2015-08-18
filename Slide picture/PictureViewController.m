@@ -8,8 +8,12 @@
 
 #import "PictureViewController.h"
 #import "Model.h"
+#import "ShowViewController.h"
 
 @interface PictureViewController ()
+
+@property (weak, nonatomic) IBOutlet UIImageView *imageContainer;
+@property NSUInteger countPictures;
 
 @end
 
@@ -20,21 +24,85 @@
     
     Model *m = [Model new];
     [m dataPictures];
+
+
+
+    self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+
+    self.pageController.dataSource = self;
+
+    [[self.pageController view] setFrame:[[self view] bounds]];
+
+    ShowViewController *initialViewController = [self viewControllerAtIndex:0];
+
+    NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
+    [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+
+  //  self.pageController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 30);
+
+    [self addChildViewController:_pageController];
+    [self.view addSubview:_pageController.view];
+    [self.pageController didMoveToParentViewController:self];
+
+    _countPictures = [initialViewController.pictureContent count];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
+{
+    NSInteger index = ((ShowViewController *)viewController).index;
+
+    if ((_countPictures == 0) || (index >= _countPictures) || index == NSNotFound)
+    {
+        return nil;
+    }
+
+    index--;
+
+    return [self viewControllerAtIndex:index];
+    
 }
 
-/*
-#pragma mark - Navigation
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
+{
+    NSInteger index = ((ShowViewController *)viewController).index;
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if (index == NSNotFound)
+        {
+        return nil;
+        }
+
+
+
+    if (index == _countPictures)
+        {
+        return nil;
+        }
+
+index++;
+
+    return [self viewControllerAtIndex:index];
 }
-*/
+
+- (ShowViewController *)viewControllerAtIndex:(NSUInteger *)index
+{
+    ShowViewController *showViewController = [[ShowViewController alloc] initWithNibName:@"ShowViewController" bundle:nil];
+    showViewController.index = index;
+
+    
+
+    return showViewController;
+}
+
+- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
+{
+    return _countPictures;
+}
+
+- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
+{
+    return 0;
+}
 
 @end

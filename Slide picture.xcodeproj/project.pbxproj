@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		110E4C061B82B41C000B81C3 /* ShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 110E4C041B82B41C000B81C3 /* ShowViewController.m */; };
+		110E4C071B82B41C000B81C3 /* ShowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 110E4C051B82B41C000B81C3 /* ShowViewController.xib */; };
 		11D5358C1B8073A50086DBC6 /* PicturesInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D5358B1B8073A50086DBC6 /* PicturesInfo.m */; };
 		11E02D5F1B7FFA4D00A30721 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E02D5E1B7FFA4D00A30721 /* main.m */; };
 		11E02D621B7FFA4D00A30721 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E02D611B7FFA4D00A30721 /* AppDelegate.m */; };
@@ -32,6 +34,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		110E4C031B82B41C000B81C3 /* ShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowViewController.h; sourceTree = "<group>"; };
+		110E4C041B82B41C000B81C3 /* ShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowViewController.m; sourceTree = "<group>"; };
+		110E4C051B82B41C000B81C3 /* ShowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowViewController.xib; sourceTree = "<group>"; };
 		11D5358A1B8073A50086DBC6 /* PicturesInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicturesInfo.h; sourceTree = "<group>"; };
 		11D5358B1B8073A50086DBC6 /* PicturesInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicturesInfo.m; sourceTree = "<group>"; };
 		11E02D591B7FFA4D00A30721 /* Slide picture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Slide picture.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,6 +108,9 @@
 				11FE09371B812DAC00B39261 /* PictureViewController.h */,
 				11FE09381B812DAC00B39261 /* PictureViewController.m */,
 				11FE09391B812DAC00B39261 /* PictureViewController.xib */,
+				110E4C031B82B41C000B81C3 /* ShowViewController.h */,
+				110E4C041B82B41C000B81C3 /* ShowViewController.m */,
+				110E4C051B82B41C000B81C3 /* ShowViewController.xib */,
 				11E02D871B7FFBA600A30721 /* Model.h */,
 				11E02D881B7FFBA600A30721 /* Model.m */,
 				11E02D6C1B7FFA4D00A30721 /* Images.xcassets */,
@@ -242,6 +250,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11E02D861B7FFB6900A30721 /* Pictures.json in Resources */,
+				110E4C071B82B41C000B81C3 /* ShowViewController.xib in Resources */,
 				11FE093B1B812DAC00B39261 /* PictureViewController.xib in Resources */,
 				11E02D701B7FFA4D00A30721 /* LaunchScreen.xib in Resources */,
 				11E02D6D1B7FFA4D00A30721 /* Images.xcassets in Resources */,
@@ -298,6 +307,7 @@
 				11E02D651B7FFA4D00A30721 /* Slide_picture.xcdatamodeld in Sources */,
 				11E02D621B7FFA4D00A30721 /* AppDelegate.m in Sources */,
 				11D5358C1B8073A50086DBC6 /* PicturesInfo.m in Sources */,
+				110E4C061B82B41C000B81C3 /* ShowViewController.m in Sources */,
 				11FE093A1B812DAC00B39261 /* PictureViewController.m in Sources */,
 				11E02D5F1B7FFA4D00A30721 /* main.m in Sources */,
 				11E02D891B7FFBA600A30721 /* Model.m in Sources */,

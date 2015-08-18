@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PictureViewController : UIViewController
+@interface PictureViewController : UIViewController <UIPageViewControllerDataSource>
+
+@property (strong, nonatomic) UIPageViewController *pageController;
 
 @end
