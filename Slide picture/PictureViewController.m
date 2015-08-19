@@ -211,6 +211,10 @@
 // Метод перехода в окно настроек
 - (void)settingsUser
 {
+    // Остановка автоматической смены картинок
+    [self.timePic invalidate];
+    self.timePic = nil;
+
     SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
 
     UINavigationController *settingsNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
