@@ -59,6 +59,7 @@
     [self addChildViewController:_pageController];
     [self.view addSubview:_pageController.view];
     [self.pageController didMoveToParentViewController:self];
+    NSLog(@"count testobject %i", (int)[initialViewController.pictureContent count]);
 
     _countPictures = [initialViewController.pictureContent count]; // количество картинок в базе данных
 }
@@ -67,9 +68,28 @@
 {
     [super viewWillAppear:animated];
 
+    // Обновление базы данных
+
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
     // Запрос данных из базы
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"PicturesInfo"];
+
+    if (![settings boolForKey:@"showPicture"])
+        {
+        NSPredicate *favouritesContent = [NSPredicate predicateWithFormat:@"favourite == YES"];
+
+        [fetchRequest setPredicate:favouritesContent];
+        }
     self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+
+    NSLog(@"count viewWillApear massive %i", (int)[self.pictureContent count]);
+    _countPictures = (int)[self.pictureContent count];
+
+    ShowViewController *initialViewController = [self viewControllerAtIndex:self.indexCurrent];
+
+    NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
+    [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
 }
 
 
@@ -120,7 +140,7 @@
 
     index++;
 
-    if ((index + 1 >= _countPictures) || (index == NSNotFound))
+    if ((index + 1 > _countPictures) || (index == NSNotFound))
         {
         return nil;
         }
