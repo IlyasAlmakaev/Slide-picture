@@ -86,7 +86,7 @@
     NSLog(@"count viewWillApear massive %i", (int)[self.pictureContent count]);
     _countPictures = (int)[self.pictureContent count];
 
-    ShowViewController *initialViewController = [self viewControllerAtIndex:self.indexCurrent];
+    ShowViewController *initialViewController = [self viewControllerAtIndex:0];
 
     NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
     [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
@@ -98,12 +98,12 @@
     [super viewDidAppear:animated];
 
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
-
+    // Остановка таймера
     [self.timePic invalidate];
     self.timePic = nil;
     
     if ([settings boolForKey:@"automaticSlide"])
-    // Таймер
+    // Запуск таймера
     self.timePic = [NSTimer scheduledTimerWithTimeInterval:[settings integerForKey:@"timeInterval"]
                                                    target:self
                                                  selector:@selector(nextShowViewController)
