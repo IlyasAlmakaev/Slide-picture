@@ -179,6 +179,10 @@
 // Метод перехода на следующую картинку
 - (void)nextShowViewController
 {
+    if (self.indexCurrent + 1 > _countPictures )
+    {
+    self.indexCurrent = 0;
+    }
     ShowViewController *initialViewController = [self viewControllerAtIndex:self.indexCurrent];
 
     NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
