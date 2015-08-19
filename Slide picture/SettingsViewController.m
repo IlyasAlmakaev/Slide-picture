@@ -37,8 +37,24 @@
                                                                                            target:self
                                                                                            action:@selector(save)];
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
-    self.stepperOutlet.value = [settings integerForKey:@"timeInterval"];
-    self.labelTimeInterval.text = [NSString stringWithFormat:@"Через %i секунд(ы)", (int)self.stepperOutlet.value];
+
+    if ([settings boolForKey:@"automaticSlide"])
+        {
+        self.automaticSlide.on = true;
+        self.labelAutomaticSlide.text = @"Вкл. авт. смены картинок";
+        self.stepperOutlet.enabled = true;
+        self.labelTimeInterval.enabled = true;
+        self.stepperOutlet.value = [settings integerForKey:@"timeInterval"];
+        self.labelTimeInterval.text = [NSString stringWithFormat:@"Через %i секунд(ы)", (int)self.stepperOutlet.value];
+        }
+    else
+        {
+        self.automaticSlide.on = false;
+        self.labelAutomaticSlide.text = @"Выкл. авт. смены картинок";
+        self.stepperOutlet.enabled = false;
+        self.labelTimeInterval.enabled = false;
+        self.labelTimeInterval.text = @"Время не доступно";
+        }
 }
 
 // Сохранение настроек
