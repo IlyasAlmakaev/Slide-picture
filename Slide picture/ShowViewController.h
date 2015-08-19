@@ -14,5 +14,6 @@
 @property (nonatomic) NSMutableArray *pictureContent;
 @property (nonatomic) NSManagedObject *pictureManagedObject;
 @property (assign, nonatomic) NSInteger index;
+@property (weak, nonatomic) IBOutlet UILabel *labelComment;
 
 @end

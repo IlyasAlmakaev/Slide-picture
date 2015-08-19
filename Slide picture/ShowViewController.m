@@ -21,7 +21,7 @@
     [super viewDidLoad];
     
     self.pictureContent = [[NSMutableArray alloc] init];
-    self.appDelegate =[AppDelegate new];
+    self.appDelegate = [AppDelegate new];
 
 }
 
@@ -33,7 +33,8 @@
     self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     self.pictureManagedObject = [self.pictureContent objectAtIndex:self.index];
     self.imageView.image = [UIImage imageWithData:[self.pictureManagedObject valueForKey:@"picture"]];
-    
+
+    self.labelComment.text = [self.pictureManagedObject valueForKey:@"comment"];
 }
 
 @end

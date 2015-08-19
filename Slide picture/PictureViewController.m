@@ -9,10 +9,17 @@
 #import "PictureViewController.h"
 #import "Model.h"
 #import "ShowViewController.h"
+#import "AppDelegate.h"
+#import "SettingsViewController.h"
 
 @interface PictureViewController ()
 
 @property NSUInteger countPictures;
+@property (nonatomic) NSMutableArray *pictureContent;
+@property (nonatomic) NSManagedObject *pictureManagedObject;
+@property (strong, nonatomic) AppDelegate *appDelegate;
+@property (strong, nonatomic) ShowViewController *showViewController;
+@property (assign, nonatomic) NSInteger indexCurrent;
 
 @end
 
@@ -20,14 +27,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    self.appDelegate = [AppDelegate new];
+    self.showViewController = [ShowViewController new];
+
     Model *m = [Model new];
     [m dataPictures];
 
+    // Кнопки Navigation bar
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsUser)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\ue00e" style:UIBarButtonItemStylePlain target:self action:@selector(addFavourite)];
 
+    // Таймер
+    [NSTimer scheduledTimerWithTimeInterval:2.0
+                                     target:self
+                                   selector:@selector(nextShowViewController)
+                                   userInfo:nil
+                                    repeats:YES];
 
+    // Создание Page View Controller
     self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
 
     self.pageController.dataSource = self;
@@ -43,7 +61,16 @@
     [self.view addSubview:_pageController.view];
     [self.pageController didMoveToParentViewController:self];
 
-    _countPictures = [initialViewController.pictureContent count];
+    _countPictures = [initialViewController.pictureContent count]; // количество картинок в базе данных
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    // Запрос данных из базы
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"PicturesInfo"];
+    self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
 }
 
 
@@ -52,12 +79,13 @@
 {
     NSInteger index = ((ShowViewController *)viewController).index;
 
-    if ((_countPictures == 0) || (index >= _countPictures) || index == NSNotFound)
+    if ((index == 0) || (index == NSNotFound))
     {
         return nil;
     }
 
     index--;
+
 
     return [self viewControllerAtIndex:index];
     
@@ -68,20 +96,11 @@
     NSInteger index = ((ShowViewController *)viewController).index;
 
     index++;
-    
-    if (index == NSNotFound)
+
+    if ((index + 1 >= _countPictures) || (index == NSNotFound))
         {
         return nil;
         }
-
-
-
-    if (index == _countPictures)
-        {
-        return nil;
-        }
-
-
 
     return [self viewControllerAtIndex:index];
 }
@@ -90,8 +109,7 @@
 {
     ShowViewController *showViewController = [[ShowViewController alloc] initWithNibName:@"ShowViewController" bundle:nil];
     showViewController.index = index;
-
-    
+   // self.indexCurrent = index;
 
     return showViewController;
 }
@@ -104,6 +122,68 @@
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
 {
     return 0;
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+        {
+        NSString *test = [[alertView textFieldAtIndex:0] text]; // комментарий пользователя
+        NSError *error;
+        self.pictureManagedObject = [self.pictureContent objectAtIndex:self.indexCurrent];
+
+        [self.pictureManagedObject setValue:@YES forKey:@"favourite"];
+        NSLog(@"bool test %@",[self.pictureManagedObject valueForKey:@"favourite"]);
+
+        // Проверка на пустое поле
+        if (test && test.length > 0 && [test stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length != 0)
+            {
+            [self.pictureManagedObject setValue:test forKey:@"comment"];
+
+            NSLog(@"text alert view core data %@", [self.pictureManagedObject valueForKey:@"comment"]);
+            }
+        [self.appDelegate.managedObjectContext save:&error];
+        if (error)
+            {
+            NSLog(@"Managed object context error: %@", error.description);  // описание ошибки
+            }
+
+        // Обновление комментария
+        ShowViewController *initialViewController = [self viewControllerAtIndex:self.indexCurrent];
+
+        NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
+        [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+        }
+    
+}
+
+// Метод добавления картинки в favourites
+- (void)addFavourite
+{
+    UIAlertView *alertViewChangeName=[[UIAlertView alloc]initWithTitle:@"Добавить картинку в favorites?" message:@"Вы можете прокомментировать." delegate:self cancelButtonTitle:@"Нет" otherButtonTitles:@"Да", nil];
+    alertViewChangeName.alertViewStyle=UIAlertViewStylePlainTextInput;
+    [alertViewChangeName show];
+}
+
+// Метод перехода в окно настроек
+- (void)settingsUser
+{
+    SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
+
+    UINavigationController *settingsNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+    settingsNavigationController.navigationBar.translucent = NO;
+    [self.navigationController presentViewController:settingsNavigationController
+                                            animated:YES
+                                          completion:nil];
+}
+// Метод перехода на следующую картинку
+- (void)nextShowViewController
+{
+    ShowViewController *initialViewController = [self viewControllerAtIndex:self.indexCurrent];
+
+    NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
+    [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+    self.indexCurrent++;
 }
 
 @end

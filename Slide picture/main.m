@@ -1,4 +1,4 @@
-//
++//
 //  main.m
 //  Slide picture
 //
