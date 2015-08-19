@@ -18,8 +18,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelShowRandom;
 @property (weak, nonatomic) IBOutlet UILabel *labelShowAnimation;
 @property (weak, nonatomic) IBOutlet UILabel *labelTimeInterval;
-@property (weak, nonatomic) IBOutlet UITextField *timeIntervalField;
+@property (weak, nonatomic) IBOutlet UIStepper *stepperOutlet;
 - (IBAction)switchPressed:(id)sender;
+- (IBAction)stepperAction:(id)sender;
 
 @end
 
@@ -35,6 +36,9 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                                            target:self
                                                                                            action:@selector(save)];
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+    self.stepperOutlet.value = [settings integerForKey:@"timeInterval"];
+    self.labelTimeInterval.text = [NSString stringWithFormat:@"Через %i секунд(ы)", (int)self.stepperOutlet.value];
 }
 
 // Сохранение настроек
@@ -42,7 +46,7 @@
 {
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
     [settings setBool:self.automaticSlide.isOn forKey:@"automaticSlide"];
-    [settings setInteger:[self.timeIntervalField.text intValue] forKey:@"timeInterval"];
+    [settings setInteger:(NSInteger)self.stepperOutlet.value forKey:@"timeInterval"];
     //[settings setBool:self.automaticSlide.isOn forKey:@"automaticSlide"];
     [settings synchronize];
 }
@@ -59,14 +63,21 @@
     if (self.automaticSlide.on)
         {
         self.labelAutomaticSlide.text = @"Вкл. авт. смены картинок";
-        self.timeIntervalField.enabled = true;
+        self.stepperOutlet.enabled = true;
         self.labelTimeInterval.enabled = true;
+        self.labelTimeInterval.text = [NSString stringWithFormat:@"Через %i секунд(ы)", (int)self.stepperOutlet.value];
         }
     else
         {
         self.labelAutomaticSlide.text = @"Выкл. авт. смены картинок";
-        self.timeIntervalField.enabled = false;
+        self.stepperOutlet.enabled = false;
         self.labelTimeInterval.enabled = false;
+        self.labelTimeInterval.text = @"Время не доступно";
         }
+}
+
+- (IBAction)stepperAction:(id)sender
+{
+    self.labelTimeInterval.text = [NSString stringWithFormat:@"Через %i секунд(ы)", (int)self.stepperOutlet.value];
 }
 @end
