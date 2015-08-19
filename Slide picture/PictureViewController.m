@@ -15,6 +15,7 @@
 @interface PictureViewController ()
 
 @property NSUInteger countPictures;
+@property (nonatomic) NSTimer *timePic;
 @property (nonatomic) NSMutableArray *pictureContent;
 @property (nonatomic) NSManagedObject *pictureManagedObject;
 @property (strong, nonatomic) AppDelegate *appDelegate;
@@ -34,16 +35,14 @@
     Model *m = [Model new];
     [m dataPictures];
 
+
+
     // Кнопки Navigation bar
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsUser)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\ue00e" style:UIBarButtonItemStylePlain target:self action:@selector(addFavourite)];
 
-    // Таймер
-    [NSTimer scheduledTimerWithTimeInterval:2.0
-                                     target:self
-                                   selector:@selector(nextShowViewController)
-                                   userInfo:nil
-                                    repeats:YES];
+
+
 
     // Создание Page View Controller
     self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
@@ -74,6 +73,29 @@
 }
 
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
+    [self.timePic invalidate];
+    self.timePic = nil;
+    if ([settings boolForKey:@"automaticSlide"])
+        // Таймер
+        self.timePic = [NSTimer scheduledTimerWithTimeInterval:2.0
+                                                   target:self
+                                                 selector:@selector(nextShowViewController)
+                                                 userInfo:nil
+                                                  repeats:YES];
+
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
