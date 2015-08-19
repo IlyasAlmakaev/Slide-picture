@@ -31,10 +31,6 @@
                         <action selector="switchPressed:" destination="-1" eventType="valueChanged" id="aki-ZA-4Ni"/>
                     </connections>
                 </switch>
-                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="Kk2-kD-O4R">
-                    <rect key="frame" x="8" y="85" width="51" height="31"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </switch>
                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="DTt-xg-Cej">
                     <rect key="frame" x="8" y="124" width="51" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -85,6 +81,13 @@
                         <action selector="stepperAction:" destination="-1" eventType="valueChanged" id="dZO-LX-OtS"/>
                     </connections>
                 </stepper>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="Kk2-kD-O4R">
+                    <rect key="frame" x="8" y="85" width="51" height="31"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <connections>
+                        <action selector="showPicturePressed:" destination="-1" eventType="valueChanged" id="hFg-B6-Hrq"/>
+                    </connections>
+                </switch>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <point key="canvasLocation" x="305" y="433"/>

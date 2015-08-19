@@ -29,7 +29,19 @@
 {
     [super viewDidAppear:animated];
 
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"PicturesInfo"];
+
+    if (![settings boolForKey:@"showPicture"])
+    {
+        NSPredicate *favouritesContent = [NSPredicate predicateWithFormat:@"favourite == YES"];
+
+        [fetchRequest setPredicate:favouritesContent];
+    }
+
+
+
     self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     self.pictureManagedObject = [self.pictureContent objectAtIndex:self.index];
     self.imageView.image = [UIImage imageWithData:[self.pictureManagedObject valueForKey:@"picture"]];

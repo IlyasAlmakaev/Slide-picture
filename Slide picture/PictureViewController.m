@@ -81,6 +81,7 @@
 
     [self.timePic invalidate];
     self.timePic = nil;
+    
     if ([settings boolForKey:@"automaticSlide"])
     // Таймер
     self.timePic = [NSTimer scheduledTimerWithTimeInterval:[settings integerForKey:@"timeInterval"]

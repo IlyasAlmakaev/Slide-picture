@@ -20,7 +20,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelTimeInterval;
 @property (weak, nonatomic) IBOutlet UIStepper *stepperOutlet;
 - (IBAction)switchPressed:(id)sender;
+- (IBAction)showPicturePressed:(id)sender;
+
 - (IBAction)stepperAction:(id)sender;
+
+
 
 @end
 
@@ -38,7 +42,7 @@
                                                                                            action:@selector(save)];
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
 
-    if ([settings boolForKey:@"automaticSlide"])
+    if ([settings boolForKey:@"automaticSlide"] == YES)
         {
         self.automaticSlide.on = true;
         self.labelAutomaticSlide.text = @"Вкл. авт. смены картинок";
@@ -47,13 +51,23 @@
         self.stepperOutlet.value = [settings integerForKey:@"timeInterval"];
         self.labelTimeInterval.text = [NSString stringWithFormat:@"Через %i секунд(ы)", (int)self.stepperOutlet.value];
         }
-    else
+    else if ([settings boolForKey:@"automaticSlide"] == NO)
         {
         self.automaticSlide.on = false;
         self.labelAutomaticSlide.text = @"Выкл. авт. смены картинок";
         self.stepperOutlet.enabled = false;
         self.labelTimeInterval.enabled = false;
         self.labelTimeInterval.text = @"Время не доступно";
+        }
+     if ([settings boolForKey:@"showPicture"] == YES)
+        {
+        self.labelShowPicture.text = @"Показывать всё";
+        self.showPicture.on = true;
+        }
+    else if ([settings boolForKey:@"showPicture"] == NO)
+        {
+        self.labelShowPicture.text = @"Показывать только favourites";
+        self.showPicture.on = false;
         }
 }
 
@@ -63,6 +77,7 @@
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
     [settings setBool:self.automaticSlide.isOn forKey:@"automaticSlide"];
     [settings setInteger:(NSInteger)self.stepperOutlet.value forKey:@"timeInterval"];
+    [settings setBool:self.showPicture.isOn forKey:@"showPicture"];
     //[settings setBool:self.automaticSlide.isOn forKey:@"automaticSlide"];
     [settings synchronize];
 }
@@ -95,5 +110,17 @@
 - (IBAction)stepperAction:(id)sender
 {
     self.labelTimeInterval.text = [NSString stringWithFormat:@"Через %i секунд(ы)", (int)self.stepperOutlet.value];
+}
+
+- (IBAction)showPicturePressed:(id)sender
+{
+    if (self.showPicture.on)
+        {
+        self.labelShowPicture.text = @"Показывать всё";
+        }
+    else
+        {
+        self.labelShowPicture.text = @"Показывать только favourites";
+        }
 }
 @end
