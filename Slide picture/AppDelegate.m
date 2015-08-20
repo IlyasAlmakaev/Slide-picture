@@ -24,6 +24,7 @@
     PictureViewController *pictureViewController = [[PictureViewController alloc] initWithNibName:@"PictureViewController" bundle:nil];
 
     UINavigationController *pictureNavigationController = [[UINavigationController alloc] initWithRootViewController:pictureViewController];
+    pictureNavigationController.navigationBar.translucent = NO;
 
     // set it as the root view controller of the application's window
     [self.window setRootViewController:pictureNavigationController];

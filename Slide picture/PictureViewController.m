@@ -90,6 +90,8 @@
 
     NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
     [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+ //   self.indexCurrent = initialViewController.index;
+    NSLog(@"index log %i", (int)initialViewController.index);
 }
 
 
@@ -109,13 +111,6 @@
                                                  selector:@selector(nextShowViewController)
                                                  userInfo:nil
                                                   repeats:YES];
-
-
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
@@ -128,7 +123,6 @@
     }
 
     index--;
-
 
     return [self viewControllerAtIndex:index];
     
@@ -152,6 +146,7 @@
 {
     ShowViewController *showViewController = [[ShowViewController alloc] initWithNibName:@"ShowViewController" bundle:nil];
     showViewController.index = index;
+    NSLog(@"index current %i", (int)index);
    // self.indexCurrent = index;
 
     return showViewController;
@@ -166,7 +161,7 @@
 {
     return 0;
 }
-
+// Обработчик нажатия кнопок в AlertView
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1)
@@ -175,17 +170,17 @@
         NSError *error;
         self.pictureManagedObject = [self.pictureContent objectAtIndex:self.indexCurrent];
 
-        [self.pictureManagedObject setValue:@YES forKey:@"favourite"];
+        [self.pictureManagedObject setValue:@YES forKey:@"favourite"]; // Добавление картинки в favourite
         NSLog(@"bool test %@",[self.pictureManagedObject valueForKey:@"favourite"]);
 
         // Проверка на пустое поле
         if (test && test.length > 0 && [test stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length != 0)
             {
-            [self.pictureManagedObject setValue:test forKey:@"comment"];
+            [self.pictureManagedObject setValue:test forKey:@"comment"]; // Добавление комментария для картинки
 
             NSLog(@"text alert view core data %@", [self.pictureManagedObject valueForKey:@"comment"]);
             }
-        [self.appDelegate.managedObjectContext save:&error];
+        [self.appDelegate.managedObjectContext save:&error]; // Сохранение данных в CoreData
         if (error)
             {
             NSLog(@"Managed object context error: %@", error.description);  // описание ошибки

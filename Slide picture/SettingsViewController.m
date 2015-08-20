@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelShowAnimation;
 @property (weak, nonatomic) IBOutlet UILabel *labelTimeInterval;
 @property (weak, nonatomic) IBOutlet UIStepper *stepperOutlet;
+
 - (IBAction)switchPressed:(id)sender;
 - (IBAction)showPicturePressed:(id)sender;
 
@@ -80,6 +81,8 @@
     [settings setBool:self.showPicture.isOn forKey:@"showPicture"];
     //[settings setBool:self.automaticSlide.isOn forKey:@"automaticSlide"];
     [settings synchronize];
+    // Выход
+    [self back];
 }
 
 // Выход
