@@ -15,12 +15,14 @@
 @interface PictureViewController ()
 
 @property NSUInteger countPictures;
+@property (assign, nonatomic) NSInteger indexCurrent;
+@property (nonatomic) NSString *animationMode;
 @property (nonatomic) NSTimer *timePic;
 @property (nonatomic) NSMutableArray *pictureContent;
 @property (nonatomic) NSManagedObject *pictureManagedObject;
-@property (strong, nonatomic) AppDelegate *appDelegate;
-@property (strong, nonatomic) ShowViewController *showViewController;
-@property (assign, nonatomic) NSInteger indexCurrent;
+@property (nonatomic) AppDelegate *appDelegate;
+@property (nonatomic) ShowViewController *showViewController;
+
 
 @end
 
@@ -41,57 +43,21 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsUser)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\ue00e" style:UIBarButtonItemStylePlain target:self action:@selector(addFavourite)];
 
+   // [self pageViewStart]; // Создание Page View Controller
 
-
-
-    // Создание Page View Controller
-    self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
-
-    self.pageController.dataSource = self;
-
-    [[self.pageController view] setFrame:[[self view] bounds]];
-
-    ShowViewController *initialViewController = [self viewControllerAtIndex:0];
-
-    NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
-    [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-
-    [self addChildViewController:_pageController];
-    [self.view addSubview:_pageController.view];
-    [self.pageController didMoveToParentViewController:self];
-    NSLog(@"count testobject %i", (int)[initialViewController.pictureContent count]);
-
-    _countPictures = [initialViewController.pictureContent count]; // количество картинок в базе данных
+ //   _countPictures = [initialViewController.pictureContent count]; // количество картинок в базе данных
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 
-    // Обновление базы данных
+    [self getCount]; // Получение количества картинок
 
-    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+    [self pageViewStart]; // Создание Page View Controller
 
-    // Запрос данных из базы
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"PicturesInfo"];
-
-    if (![settings boolForKey:@"showPicture"])
-        {
-        NSPredicate *favouritesContent = [NSPredicate predicateWithFormat:@"favourite == YES"];
-
-        [fetchRequest setPredicate:favouritesContent];
-        }
-    self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-
-    NSLog(@"count viewWillApear massive %i", (int)[self.pictureContent count]);
-    _countPictures = (int)[self.pictureContent count];
-
-    ShowViewController *initialViewController = [self viewControllerAtIndex:0];
-
-    NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
-    [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
  //   self.indexCurrent = initialViewController.index;
-    NSLog(@"index log %i", (int)initialViewController.index);
+
 }
 
 
@@ -100,6 +66,9 @@
     [super viewDidAppear:animated];
 
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
+    [self pageViewReload]; // Обновление PageViewController
+
     // Остановка таймера
     [self.timePic invalidate];
     self.timePic = nil;
@@ -144,6 +113,11 @@
 
 - (ShowViewController *)viewControllerAtIndex:(NSUInteger *)index
 {
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+    if (![settings boolForKey:@"showCertain"] && _countPictures)
+        {
+        index = (arc4random() % _countPictures);
+        }
     ShowViewController *showViewController = [[ShowViewController alloc] initWithNibName:@"ShowViewController" bundle:nil];
     showViewController.index = index;
     NSLog(@"index current %i", (int)index);
@@ -161,10 +135,11 @@
 {
     return 0;
 }
+
 // Обработчик нажатия кнопок в AlertView
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1)
+    if (buttonIndex == 0)
         {
         NSString *test = [[alertView textFieldAtIndex:0] text]; // комментарий пользователя
         NSError *error;
@@ -198,7 +173,7 @@
 // Метод добавления картинки в favourites
 - (void)addFavourite
 {
-    UIAlertView *alertViewChangeName=[[UIAlertView alloc]initWithTitle:@"Добавить картинку в favorites?" message:@"Вы можете прокомментировать." delegate:self cancelButtonTitle:@"Нет" otherButtonTitles:@"Да", nil];
+    UIAlertView *alertViewChangeName=[[UIAlertView alloc]initWithTitle:@"Добавить картинку в favorites?" message:@"Вы можете прокомментировать." delegate:self cancelButtonTitle:@"Да" otherButtonTitles:@"Нет", nil];
     alertViewChangeName.alertViewStyle=UIAlertViewStylePlainTextInput;
     [alertViewChangeName show];
 }
@@ -230,6 +205,61 @@
     NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
     [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
     self.indexCurrent++;
+}
+
+// Получение количества картинок
+- (void)getCount
+{
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
+    // Запрос данных из базы
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"PicturesInfo"];
+
+    if (![settings boolForKey:@"showPicture"])
+        {
+        NSPredicate *favouritesContent = [NSPredicate predicateWithFormat:@"favourite == YES"];
+
+        [fetchRequest setPredicate:favouritesContent];
+        }
+    self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+
+    NSLog(@"count viewWillApear massive %i", (int)[self.pictureContent count]);
+    _countPictures = (int)[self.pictureContent count];
+}
+
+// Создание Page View Controller
+- (void)pageViewStart
+{
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
+    if ([settings boolForKey:@"showAnimation"])
+        self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    else
+        self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+
+    self.pageController.dataSource = self;
+
+    [[self.pageController view] setFrame:[[self view] bounds]];
+
+    [self pageViewReload];
+
+    [self addChildViewController:_pageController];
+    [self.view addSubview:_pageController.view];
+    [self.pageController didMoveToParentViewController:self];
+
+}
+
+// Обновление Page View Controller
+- (void)pageViewReload
+{
+    ShowViewController *initialViewController = [self viewControllerAtIndex:0];
+
+    NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
+
+    [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+
+    NSLog(@"count testobject %i", (int)[initialViewController.pictureContent count]);
+    NSLog(@"index log %i", (int)initialViewController.index);
 }
 
 @end

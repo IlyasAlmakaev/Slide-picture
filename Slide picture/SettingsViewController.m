@@ -11,17 +11,19 @@
 @interface SettingsViewController ()
 @property (weak, nonatomic) IBOutlet UISwitch *automaticSlide;
 @property (weak, nonatomic) IBOutlet UISwitch *showPicture;
-@property (weak, nonatomic) IBOutlet UISwitch *showRandom;
+@property (weak, nonatomic) IBOutlet UISwitch *showCertain;
 @property (weak, nonatomic) IBOutlet UISwitch *showAnimation;
 @property (weak, nonatomic) IBOutlet UILabel *labelAutomaticSlide;
 @property (weak, nonatomic) IBOutlet UILabel *labelShowPicture;
-@property (weak, nonatomic) IBOutlet UILabel *labelShowRandom;
+@property (weak, nonatomic) IBOutlet UILabel *labelShowCertain;
 @property (weak, nonatomic) IBOutlet UILabel *labelShowAnimation;
 @property (weak, nonatomic) IBOutlet UILabel *labelTimeInterval;
 @property (weak, nonatomic) IBOutlet UIStepper *stepperOutlet;
 
 - (IBAction)switchPressed:(id)sender;
 - (IBAction)showPicturePressed:(id)sender;
+- (IBAction)showCertaionPressed:(id)sender;
+- (IBAction)showAnimationPressed:(id)sender;
 
 - (IBAction)stepperAction:(id)sender;
 
@@ -70,16 +72,39 @@
         self.labelShowPicture.text = @"Показывать только favourites";
         self.showPicture.on = false;
         }
+    if ([settings boolForKey:@"showCertain"] == YES)
+        {
+        self.labelShowCertain.text = @"Показывать по порядку";
+        self.showCertain.on = true;
+        }
+    else if ([settings boolForKey:@"showCertain"] == NO)
+        {
+        self.labelShowCertain.text = @"Показывать хаотично";
+        self.showCertain.on = false;
+        }
+    if ([settings boolForKey:@"showAnimation"] == YES)
+        {
+        self.labelShowAnimation.text = @"Анимация: перелистывание книги";
+        self.showAnimation.on = true;
+        }
+    else if ([settings boolForKey:@"showAnimation"] == NO)
+        {
+        self.labelShowAnimation.text = @"Анимация прокрутки";
+        self.showAnimation.on = false;
+        }
 }
 
 // Сохранение настроек
 - (void)save
 {
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
     [settings setBool:self.automaticSlide.isOn forKey:@"automaticSlide"];
     [settings setInteger:(NSInteger)self.stepperOutlet.value forKey:@"timeInterval"];
     [settings setBool:self.showPicture.isOn forKey:@"showPicture"];
-    //[settings setBool:self.automaticSlide.isOn forKey:@"automaticSlide"];
+    [settings setBool:self.showCertain.isOn forKey:@"showCertain"];
+    [settings setBool:self.showAnimation.isOn forKey:@"showAnimation"];
+
     [settings synchronize];
     // Выход
     [self back];
@@ -124,6 +149,30 @@
     else
         {
         self.labelShowPicture.text = @"Показывать только favourites";
+        }
+}
+
+- (IBAction)showCertaionPressed:(id)sender
+{
+    if (self.showCertain.on)
+        {
+        self.labelShowCertain.text = @"Показывать по порядку";
+        }
+    else
+        {
+        self.labelShowCertain.text = @"Показывать хаотично";
+        }
+}
+
+- (IBAction)showAnimationPressed:(id)sender
+{
+    if (self.showAnimation.on)
+        {
+        self.labelShowAnimation.text = @"Анимация: перелистывание книги";
+        }
+    else
+        {
+        self.labelShowAnimation.text = @"Анимация: прокрутка";
         }
 }
 @end

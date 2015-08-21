@@ -9,12 +9,12 @@
                 <outlet property="automaticSlide" destination="peU-hM-DT6" id="lhb-0y-mTV"/>
                 <outlet property="labelAutomaticSlide" destination="V5A-IZ-oUX" id="DOf-Dk-hnt"/>
                 <outlet property="labelShowAnimation" destination="pCY-H7-CBq" id="n2h-XD-bJZ"/>
+                <outlet property="labelShowCertain" destination="SZ8-SP-22M" id="81d-y8-g0D"/>
                 <outlet property="labelShowPicture" destination="CVF-xf-Jwc" id="A3b-Sd-SRO"/>
-                <outlet property="labelShowRandom" destination="SZ8-SP-22M" id="bRf-U5-Nkq"/>
                 <outlet property="labelTimeInterval" destination="qFk-MM-oCj" id="Bz0-sd-Fmd"/>
                 <outlet property="showAnimation" destination="Bfw-97-rKf" id="GAn-8y-V3J"/>
+                <outlet property="showCertain" destination="DTt-xg-Cej" id="6OA-Z0-5Jp"/>
                 <outlet property="showPicture" destination="Kk2-kD-O4R" id="jc5-L9-BKc"/>
-                <outlet property="showRandom" destination="DTt-xg-Cej" id="bdK-DC-nbw"/>
                 <outlet property="stepperOutlet" destination="5J2-ea-YzN" id="feT-Y4-ozP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -34,20 +34,19 @@
                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="DTt-xg-Cej">
                     <rect key="frame" x="8" y="124" width="51" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <connections>
+                        <action selector="showCertaionPressed:" destination="-1" eventType="valueChanged" id="Wbk-cK-iNR"/>
+                    </connections>
                 </switch>
                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="Bfw-97-rKf">
                     <rect key="frame" x="8" y="163" width="51" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <connections>
+                        <action selector="showAnimationPressed:" destination="-1" eventType="valueChanged" id="Odd-TS-ciS"/>
+                    </connections>
                 </switch>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Показывать всё" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CVF-xf-Jwc">
                     <rect key="frame" x="65" y="90" width="247" height="21"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Показывать по порядковому номеру" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SZ8-SP-22M">
-                    <rect key="frame" x="65" y="129" width="247" height="21"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -88,6 +87,13 @@
                         <action selector="showPicturePressed:" destination="-1" eventType="valueChanged" id="hFg-B6-Hrq"/>
                     </connections>
                 </switch>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Показывать по порядку" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SZ8-SP-22M">
+                    <rect key="frame" x="65" y="129" width="247" height="21"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <point key="canvasLocation" x="305" y="433"/>
