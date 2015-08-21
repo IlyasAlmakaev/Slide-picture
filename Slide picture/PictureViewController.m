@@ -31,13 +31,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    NSLog(@"work");
+
     self.appDelegate = [AppDelegate new];
     self.showViewController = [ShowViewController new];
 
     Model *m = [Model new];
     [m dataPictures];
-
-
 
     // Кнопки Navigation bar
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsUser)];
@@ -136,11 +136,21 @@
     return 0;
 }
 
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
+{
+    if (completed)
+    {
+        NSLog(@"current index page %i", (int)[[self.pageController.viewControllers lastObject] index]);
+        self.indexCurrent = [[self.pageController.viewControllers lastObject] index];
+    }
+}
+
 // Обработчик нажатия кнопок в AlertView
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0)
         {
+        NSLog(@"index alertView 1 %i", (int)self.indexCurrent);
         NSString *test = [[alertView textFieldAtIndex:0] text]; // комментарий пользователя
         NSError *error;
         self.pictureManagedObject = [self.pictureContent objectAtIndex:self.indexCurrent];
@@ -162,10 +172,7 @@
             }
 
         // Обновление комментария
-        ShowViewController *initialViewController = [self viewControllerAtIndex:self.indexCurrent];
-
-        NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
-        [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+        [self pageViewReload];
         }
     
 }
@@ -173,8 +180,14 @@
 // Метод добавления картинки в favourites
 - (void)addFavourite
 {
-    UIAlertView *alertViewChangeName=[[UIAlertView alloc]initWithTitle:@"Добавить картинку в favorites?" message:@"Вы можете прокомментировать." delegate:self cancelButtonTitle:@"Да" otherButtonTitles:@"Нет", nil];
+    UIAlertView *alertViewChangeName=[[UIAlertView alloc]initWithTitle:@"Добавить картинку в favorites?"
+                                                               message:@"Вы можете прокомментировать."
+                                                              delegate:self
+                                                     cancelButtonTitle:@"Да"
+                                                     otherButtonTitles:@"Нет", nil];
+
     alertViewChangeName.alertViewStyle=UIAlertViewStylePlainTextInput;
+
     [alertViewChangeName show];
 }
 
@@ -193,6 +206,7 @@
                                             animated:YES
                                           completion:nil];
 }
+
 // Метод перехода на следующую картинку
 - (void)nextShowViewController
 {
@@ -215,13 +229,20 @@
     // Запрос данных из базы
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"PicturesInfo"];
 
-    if (![settings boolForKey:@"showPicture"])
+    if ([settings boolForKey:@"showPicture"])
         {
         NSPredicate *favouritesContent = [NSPredicate predicateWithFormat:@"favourite == YES"];
 
         [fetchRequest setPredicate:favouritesContent];
+
+        self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+
         }
-    self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    else
+        {
+        self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        }
+
 
     NSLog(@"count viewWillApear massive %i", (int)[self.pictureContent count]);
     _countPictures = (int)[self.pictureContent count];
@@ -252,7 +273,7 @@
 // Обновление Page View Controller
 - (void)pageViewReload
 {
-    ShowViewController *initialViewController = [self viewControllerAtIndex:0];
+    ShowViewController *initialViewController = [self viewControllerAtIndex:self.indexCurrent];
 
     NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
 

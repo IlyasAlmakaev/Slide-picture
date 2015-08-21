@@ -33,16 +33,20 @@
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"PicturesInfo"];
 
-    if (![settings boolForKey:@"showPicture"])
-    {
+    if ([settings boolForKey:@"showPicture"])
+        {
         NSPredicate *favouritesContent = [NSPredicate predicateWithFormat:@"favourite == YES"];
 
         [fetchRequest setPredicate:favouritesContent];
-    }
 
+        self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
 
+        }
+    else
+        {
+        self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        }
 
-    self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     NSLog(@"count massive %i", (int)[self.pictureContent count]);
     self.pictureManagedObject = [self.pictureContent objectAtIndex:self.index];
     self.imageView.image = [UIImage imageWithData:[self.pictureManagedObject valueForKey:@"picture"]];
