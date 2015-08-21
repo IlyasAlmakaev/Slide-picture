@@ -64,22 +64,22 @@
         }
      if ([settings boolForKey:@"showPicture"] == YES)
         {
-        self.labelShowPicture.text = @"Показывать всё";
+        self.labelShowPicture.text = @"Показывать только favourites";
         self.showPicture.on = true;
         }
     else if ([settings boolForKey:@"showPicture"] == NO)
         {
-        self.labelShowPicture.text = @"Показывать только favourites";
+        self.labelShowPicture.text = @"Показывать всё";
         self.showPicture.on = false;
         }
     if ([settings boolForKey:@"showCertain"] == YES)
         {
-        self.labelShowCertain.text = @"Показывать по порядку";
+        self.labelShowCertain.text = @"Показывать хаотично";
         self.showCertain.on = true;
         }
     else if ([settings boolForKey:@"showCertain"] == NO)
         {
-        self.labelShowCertain.text = @"Показывать хаотично";
+        self.labelShowCertain.text = @"Показывать по порядку";
         self.showCertain.on = false;
         }
     if ([settings boolForKey:@"showAnimation"] == YES)
@@ -89,7 +89,7 @@
         }
     else if ([settings boolForKey:@"showAnimation"] == NO)
         {
-        self.labelShowAnimation.text = @"Анимация прокрутки";
+        self.labelShowAnimation.text = @"Анимация: прокрутка";
         self.showAnimation.on = false;
         }
 }
@@ -144,11 +144,11 @@
 {
     if (self.showPicture.on)
         {
-        self.labelShowPicture.text = @"Показывать всё";
+        self.labelShowPicture.text = @"Показывать только favourites";
         }
     else
         {
-        self.labelShowPicture.text = @"Показывать только favourites";
+        self.labelShowPicture.text = @"Показывать всё";
         }
 }
 
@@ -156,11 +156,11 @@
 {
     if (self.showCertain.on)
         {
-        self.labelShowCertain.text = @"Показывать по порядку";
+        self.labelShowCertain.text = @"Показывать хаотично";
         }
     else
         {
-        self.labelShowCertain.text = @"Показывать хаотично";
+        self.labelShowCertain.text = @"Показывать по порядку";
         }
 }
 

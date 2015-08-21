@@ -114,7 +114,7 @@
 - (ShowViewController *)viewControllerAtIndex:(NSUInteger *)index
 {
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
-    if (![settings boolForKey:@"showCertain"] && _countPictures)
+    if ([settings boolForKey:@"showCertain"] && _countPictures)
         {
         index = (arc4random() % _countPictures);
         }

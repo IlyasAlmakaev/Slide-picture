@@ -48,10 +48,16 @@
         }
 
     NSLog(@"count massive %i", (int)[self.pictureContent count]);
-    self.pictureManagedObject = [self.pictureContent objectAtIndex:self.index];
-    self.imageView.image = [UIImage imageWithData:[self.pictureManagedObject valueForKey:@"picture"]];
-    NSLog(@"array content %@", self.pictureContent);
-    self.labelComment.text = [self.pictureManagedObject valueForKey:@"comment"];
+    if (![self.pictureContent count]) {
+        self.labelComment.text = @"У вас нет картинок в favorites";
+    }
+    else
+        {
+        self.pictureManagedObject = [self.pictureContent objectAtIndex:self.index];
+        self.imageView.image = [UIImage imageWithData:[self.pictureManagedObject valueForKey:@"picture"]];
+        NSLog(@"array content %@", self.pictureContent);
+        self.labelComment.text = [self.pictureManagedObject valueForKey:@"comment"];
+        }
 }
 
 @end
