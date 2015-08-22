@@ -42,10 +42,6 @@
     // Кнопки Navigation bar
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsUser)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\ue00e" style:UIBarButtonItemStylePlain target:self action:@selector(addFavourite)];
-
-   // [self pageViewStart]; // Создание Page View Controller
-
- //   _countPictures = [initialViewController.pictureContent count]; // количество картинок в базе данных
 }
 
 - (void)viewWillAppear:(BOOL)animated
