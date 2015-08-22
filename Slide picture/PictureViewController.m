@@ -136,20 +136,12 @@
     return 0;
 }
 
-- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
-{
-    if (completed)
-    {
-        NSLog(@"current index page %i", (int)[[self.pageController.viewControllers lastObject] index]);
-        self.indexCurrent = [[self.pageController.viewControllers lastObject] index];
-    }
-}
-
 // Обработчик нажатия кнопок в AlertView
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0)
         {
+        self.indexCurrent = [[self.pageController.viewControllers lastObject] index];
         NSLog(@"index alertView 1 %i", (int)self.indexCurrent);
         NSString *test = [[alertView textFieldAtIndex:0] text]; // комментарий пользователя
         NSError *error;
@@ -165,10 +157,12 @@
 
             NSLog(@"text alert view core data %@", [self.pictureManagedObject valueForKey:@"comment"]);
             }
-        [self.appDelegate.managedObjectContext save:&error]; // Сохранение данных в CoreData
+
+        [self.appDelegate.managedObjectContext save:&error]; // Сохранение данных в базу
+
         if (error)
             {
-            NSLog(@"Managed object context error: %@", error.description);  // описание ошибки
+            NSLog(@"Managed object context error: %@", error.description);  // описание ошибки сохранения в базу
             }
 
         // Обновление комментария
@@ -180,13 +174,13 @@
 // Метод добавления картинки в favourites
 - (void)addFavourite
 {
-    UIAlertView *alertViewChangeName=[[UIAlertView alloc]initWithTitle:@"Добавить картинку в favorites?"
+    UIAlertView *alertViewChangeName = [[UIAlertView alloc]initWithTitle:@"Добавить картинку в favorites?"
                                                                message:@"Вы можете прокомментировать."
                                                               delegate:self
                                                      cancelButtonTitle:@"Да"
                                                      otherButtonTitles:@"Нет", nil];
 
-    alertViewChangeName.alertViewStyle=UIAlertViewStylePlainTextInput;
+    alertViewChangeName.alertViewStyle = UIAlertViewStylePlainTextInput;
 
     [alertViewChangeName show];
 }
