@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0EBBF785-0291-471E-8882-7543A1AD5567</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Slide picture</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>51CFF79CE48E561A290BB34DAAABBE7DD9425274</key>
+		<string>https://github.com/IlyasAlmakaev/Slide-picture.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Slide picture.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>51CFF79CE48E561A290BB34DAAABBE7DD9425274</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/IlyasAlmakaev/Slide-picture.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>51CFF79CE48E561A290BB34DAAABBE7DD9425274</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>51CFF79CE48E561A290BB34DAAABBE7DD9425274</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Slide%20picture</string>
+		</dict>
+	</array>
+</dict>
+</plist>
