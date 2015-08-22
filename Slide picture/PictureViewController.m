@@ -192,6 +192,11 @@
     [self.timePic invalidate];
     self.timePic = nil;
 
+    // Удаление pageViewController
+    [self.pageController willMoveToParentViewController:nil];
+    [self.pageController.view removeFromSuperview];
+    [self.pageController removeFromParentViewController];
+
     SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
 
     UINavigationController *settingsNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
