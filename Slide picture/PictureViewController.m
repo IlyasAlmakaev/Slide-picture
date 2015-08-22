@@ -104,9 +104,9 @@
     index++;
 
     if ((index + 1 > _countPictures) || (index == NSNotFound))
-        {
+    {
         return nil;
-        }
+    }
 
     return [self viewControllerAtIndex:index];
 }
@@ -115,9 +115,9 @@
 {
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
     if ([settings boolForKey:@"showCertain"] && _countPictures)
-        {
+    {
         index = (arc4random() % _countPictures);
-        }
+    }
     ShowViewController *showViewController = [[ShowViewController alloc] initWithNibName:@"ShowViewController" bundle:nil];
     showViewController.index = index;
     NSLog(@"index current %i", (int)index);
@@ -140,7 +140,7 @@
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0)
-        {
+    {
         self.indexCurrent = [[self.pageController.viewControllers lastObject] index];
         NSLog(@"index alertView 1 %i", (int)self.indexCurrent);
         NSString *test = [[alertView textFieldAtIndex:0] text]; // комментарий пользователя
@@ -152,22 +152,22 @@
 
         // Проверка на пустое поле
         if (test && test.length > 0 && [test stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length != 0)
-            {
+        {
             [self.pictureManagedObject setValue:test forKey:@"comment"]; // Добавление комментария для картинки
 
             NSLog(@"text alert view core data %@", [self.pictureManagedObject valueForKey:@"comment"]);
-            }
+        }
 
         [self.appDelegate.managedObjectContext save:&error]; // Сохранение данных в базу
 
         if (error)
-            {
+        {
             NSLog(@"Managed object context error: %@", error.description);  // описание ошибки сохранения в базу
-            }
+        }
 
         // Обновление комментария
         [self pageViewReload];
-        }
+    }
     
 }
 
@@ -211,8 +211,7 @@
 {
     if (self.indexCurrent + 1 == _countPictures )
     {
-    self.indexCurrent = 0;
-    
+        self.indexCurrent = 0;
     }
     ShowViewController *initialViewController = [self viewControllerAtIndex:self.indexCurrent + 1];
 
@@ -230,18 +229,15 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"PicturesInfo"];
 
     if ([settings boolForKey:@"showPicture"])
-        {
+    {
         NSPredicate *favouritesContent = [NSPredicate predicateWithFormat:@"favourite == YES"];
 
         [fetchRequest setPredicate:favouritesContent];
 
         self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-
-        }
+    }
     else
-        {
         self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-        }
 
 
     NSLog(@"count viewWillApear massive %i", (int)[self.pictureContent count]);

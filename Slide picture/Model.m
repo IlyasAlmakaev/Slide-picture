@@ -89,8 +89,10 @@ NSLog(@"data picture go");
         NSLog(@"Image error: %@", error.description);  // описание ошибки
     dispatch_semaphore_signal(sema);
     }];
-    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+
     [requestOperation start];
+    
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
 
 }
 
