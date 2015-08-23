@@ -34,7 +34,6 @@
     NSLog(@"work");
 
     self.appDelegate = [AppDelegate new];
-    self.showViewController = [ShowViewController new];
 
     Model *m = [Model new];
     [m dataPictures];
