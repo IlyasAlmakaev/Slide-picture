@@ -85,6 +85,7 @@ NSLog(@"data picture go");
             {
             NSLog(@"Managed object context error: %@", error.description);  // описание ошибки при сохранении бд
             }
+    
         dispatch_semaphore_signal(sema);
     }
     failure:^(AFHTTPRequestOperation *operation, NSError *error)
