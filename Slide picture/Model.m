@@ -7,6 +7,7 @@
 //
 
 #import "Model.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 #import "AFNetworking.h"
 #import "PicturesInfo.h"
 #import "AppDelegate.h"
@@ -41,7 +42,7 @@
              {
 
              // метод загрузки картинок из интернета
-             [self loadPictureFromUrl:[obj objectForKey:@"url"] idPicture:[obj objectForKey:@"id"] numberPicture:[obj objectForKey:@"number"]];
+             [self loadPictureFromUrl:[obj objectForKey:@"url"] idPicture:[obj objectForKey:@"id"]];
 
              }];
             //    NSLog(@"id info %@ number info %@ Url info %@", idPics, numberPics, urlPics);
@@ -55,7 +56,7 @@ NSLog(@"data picture go");
 }
 
     // Загрузка картинок из интернета
-- (void)loadPictureFromUrl:(NSString *)urlAddress idPicture:(NSNumber *)idPict numberPicture:(NSNumber *)numberPict
+- (void)loadPictureFromUrl:(NSString *)urlAddress idPicture:(NSNumber *)idPict
 {
 
     AppDelegate *appDelegate =[AppDelegate new];
@@ -68,26 +69,28 @@ NSLog(@"data picture go");
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
     requestOperation.completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
     {
-    NSLog(@"Url info %@", urlAddress);
-        // Добавление в картинки в базу данных
-        NSData *imageData = UIImagePNGRepresentation(responseObject);
-    NSError *error;
-        [picturesInfo setValue:idPict forKey:@"idPicture"];
-        [picturesInfo setValue:numberPict forKey:@"number"];
-        [picturesInfo setValue:imageData forKey:@"picture"];
-        NSLog(@"Response: %@", imageData);
-    [appDelegate.managedObjectContext save:&error];
-    if (error)
-    {
-        NSLog(@"Managed object context error: %@", error.description);  // описание ошибки
+        NSLog(@"Url info %@", urlAddress);
+
+        [[SDImageCache sharedImageCache] storeImage:responseObject forKey:[idPict stringValue]]; // Добавление в картинки в кэш
+
+        NSError *error;
+
+        [picturesInfo setValue:idPict forKey:@"idPicture"]; // Добавление id картинки в бд
+
+        [appDelegate.managedObjectContext save:&error]; // Сохранение бд
+        if (error)
+            {
+            NSLog(@"Managed object context error: %@", error.description);  // описание ошибки при сохранении бд
+            }
+        dispatch_semaphore_signal(sema);
     }
-    dispatch_semaphore_signal(sema);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+    failure:^(AFHTTPRequestOperation *operation, NSError *error)
     {
-        NSLog(@"Image error: %@", error.description);  // описание ошибки
-    dispatch_semaphore_signal(sema);
+        NSLog(@"Image error: %@", error.description);  // описание ошибки при загрузке данных из интернета
+        dispatch_semaphore_signal(sema);
     }];
 
     [requestOperation start];

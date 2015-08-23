@@ -11,7 +11,6 @@
 		110E4C071B82B41C000B81C3 /* ShowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 110E4C051B82B41C000B81C3 /* ShowViewController.xib */; };
 		1124C6EE1B83F06700B56368 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1124C6EC1B83F06700B56368 /* SettingsViewController.m */; };
 		1124C6EF1B83F06700B56368 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1124C6ED1B83F06700B56368 /* SettingsViewController.xib */; };
-		11D5358C1B8073A50086DBC6 /* PicturesInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D5358B1B8073A50086DBC6 /* PicturesInfo.m */; };
 		11E02D5F1B7FFA4D00A30721 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E02D5E1B7FFA4D00A30721 /* main.m */; };
 		11E02D621B7FFA4D00A30721 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E02D611B7FFA4D00A30721 /* AppDelegate.m */; };
 		11E02D651B7FFA4D00A30721 /* Slide_picture.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11E02D631B7FFA4D00A30721 /* Slide_picture.xcdatamodeld */; };
@@ -20,6 +19,7 @@
 		11E02D7C1B7FFA4D00A30721 /* Slide_pictureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E02D7B1B7FFA4D00A30721 /* Slide_pictureTests.m */; };
 		11E02D861B7FFB6900A30721 /* Pictures.json in Resources */ = {isa = PBXBuildFile; fileRef = 11E02D851B7FFB6900A30721 /* Pictures.json */; };
 		11E02D891B7FFBA600A30721 /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E02D881B7FFBA600A30721 /* Model.m */; };
+		11FB6CAC1B8A444E004B95D2 /* PicturesInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FB6CAB1B8A444E004B95D2 /* PicturesInfo.m */; };
 		11FE093A1B812DAC00B39261 /* PictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FE09381B812DAC00B39261 /* PictureViewController.m */; };
 		11FE093B1B812DAC00B39261 /* PictureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11FE09391B812DAC00B39261 /* PictureViewController.xib */; };
 		A3D52559827CC6E4A2F5D81B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F641100EA3CFB8CC9D343BD1 /* libPods.a */; };
@@ -42,8 +42,6 @@
 		1124C6EB1B83F06700B56368 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		1124C6EC1B83F06700B56368 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		1124C6ED1B83F06700B56368 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
-		11D5358A1B8073A50086DBC6 /* PicturesInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicturesInfo.h; sourceTree = "<group>"; };
-		11D5358B1B8073A50086DBC6 /* PicturesInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicturesInfo.m; sourceTree = "<group>"; };
 		11E02D591B7FFA4D00A30721 /* Slide picture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Slide picture.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		11E02D5D1B7FFA4D00A30721 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11E02D5E1B7FFA4D00A30721 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -58,6 +56,8 @@
 		11E02D851B7FFB6900A30721 /* Pictures.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Pictures.json; sourceTree = "<group>"; };
 		11E02D871B7FFBA600A30721 /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
 		11E02D881B7FFBA600A30721 /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
+		11FB6CAA1B8A444E004B95D2 /* PicturesInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicturesInfo.h; sourceTree = "<group>"; };
+		11FB6CAB1B8A444E004B95D2 /* PicturesInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicturesInfo.m; sourceTree = "<group>"; };
 		11FE09371B812DAC00B39261 /* PictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureViewController.h; sourceTree = "<group>"; };
 		11FE09381B812DAC00B39261 /* PictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureViewController.m; sourceTree = "<group>"; };
 		11FE09391B812DAC00B39261 /* PictureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PictureViewController.xib; sourceTree = "<group>"; };
@@ -85,6 +85,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11DFD2F01B89728F004071F6 /* Show Picture */ = {
+			isa = PBXGroup;
+			children = (
+				11FE09371B812DAC00B39261 /* PictureViewController.h */,
+				11FE09381B812DAC00B39261 /* PictureViewController.m */,
+				11FE09391B812DAC00B39261 /* PictureViewController.xib */,
+				110E4C031B82B41C000B81C3 /* ShowViewController.h */,
+				110E4C041B82B41C000B81C3 /* ShowViewController.m */,
+				110E4C051B82B41C000B81C3 /* ShowViewController.xib */,
+			);
+			name = "Show Picture";
+			sourceTree = "<group>";
+		};
+		11DFD2F11B89730E004071F6 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				1124C6EB1B83F06700B56368 /* SettingsViewController.h */,
+				1124C6EC1B83F06700B56368 /* SettingsViewController.m */,
+				1124C6ED1B83F06700B56368 /* SettingsViewController.xib */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		11DFD2F21B8973AC004071F6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				11E02D871B7FFBA600A30721 /* Model.h */,
+				11E02D881B7FFBA600A30721 /* Model.m */,
+				11FB6CAA1B8A444E004B95D2 /* PicturesInfo.h */,
+				11FB6CAB1B8A444E004B95D2 /* PicturesInfo.m */,
+				11E02D631B7FFA4D00A30721 /* Slide_picture.xcdatamodeld */,
+				11E02D851B7FFB6900A30721 /* Pictures.json */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		11E02D501B7FFA4D00A30721 = {
 			isa = PBXGroup;
 			children = (
@@ -110,24 +146,12 @@
 			children = (
 				11E02D601B7FFA4D00A30721 /* AppDelegate.h */,
 				11E02D611B7FFA4D00A30721 /* AppDelegate.m */,
-				11FE09371B812DAC00B39261 /* PictureViewController.h */,
-				11FE09381B812DAC00B39261 /* PictureViewController.m */,
-				11FE09391B812DAC00B39261 /* PictureViewController.xib */,
-				110E4C031B82B41C000B81C3 /* ShowViewController.h */,
-				110E4C041B82B41C000B81C3 /* ShowViewController.m */,
-				110E4C051B82B41C000B81C3 /* ShowViewController.xib */,
-				1124C6EB1B83F06700B56368 /* SettingsViewController.h */,
-				1124C6EC1B83F06700B56368 /* SettingsViewController.m */,
-				1124C6ED1B83F06700B56368 /* SettingsViewController.xib */,
-				11E02D871B7FFBA600A30721 /* Model.h */,
-				11E02D881B7FFBA600A30721 /* Model.m */,
+				11DFD2F01B89728F004071F6 /* Show Picture */,
+				11DFD2F11B89730E004071F6 /* Settings */,
+				11DFD2F21B8973AC004071F6 /* Model */,
 				11E02D6C1B7FFA4D00A30721 /* Images.xcassets */,
 				11E02D6E1B7FFA4D00A30721 /* LaunchScreen.xib */,
-				11E02D631B7FFA4D00A30721 /* Slide_picture.xcdatamodeld */,
 				11E02D5C1B7FFA4D00A30721 /* Supporting Files */,
-				11E02D851B7FFB6900A30721 /* Pictures.json */,
-				11D5358A1B8073A50086DBC6 /* PicturesInfo.h */,
-				11D5358B1B8073A50086DBC6 /* PicturesInfo.m */,
 			);
 			path = "Slide picture";
 			sourceTree = "<group>";
@@ -315,9 +339,9 @@
 			files = (
 				11E02D651B7FFA4D00A30721 /* Slide_picture.xcdatamodeld in Sources */,
 				11E02D621B7FFA4D00A30721 /* AppDelegate.m in Sources */,
-				11D5358C1B8073A50086DBC6 /* PicturesInfo.m in Sources */,
 				1124C6EE1B83F06700B56368 /* SettingsViewController.m in Sources */,
 				110E4C061B82B41C000B81C3 /* ShowViewController.m in Sources */,
+				11FB6CAC1B8A444E004B95D2 /* PicturesInfo.m in Sources */,
 				11FE093A1B812DAC00B39261 /* PictureViewController.m in Sources */,
 				11E02D5F1B7FFA4D00A30721 /* main.m in Sources */,
 				11E02D891B7FFBA600A30721 /* Model.m in Sources */,

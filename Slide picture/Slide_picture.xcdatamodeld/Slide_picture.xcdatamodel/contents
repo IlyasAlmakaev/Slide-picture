@@ -4,10 +4,8 @@
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="favourite" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="idPicture" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="picture" optional="YES" attributeType="Binary" syncable="YES"/>
     </entity>
     <elements>
-        <element name="PicturesInfo" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="PicturesInfo" positionX="-63" positionY="-18" width="128" height="90"/>
     </elements>
 </model>

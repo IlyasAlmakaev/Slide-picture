@@ -7,6 +7,7 @@
 //
 
 #import "ShowViewController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface ShowViewController ()
 
@@ -48,13 +49,23 @@
         }
 
     NSLog(@"count massive %i", (int)[self.pictureContent count]);
-    if (![self.pictureContent count]) {
+    
+    if (![self.pictureContent count])
+        {
         self.labelComment.text = @"У вас нет картинок в favorites";
-    }
+        }
     else
         {
         self.pictureManagedObject = [self.pictureContent objectAtIndex:self.index];
-        self.imageView.image = [UIImage imageWithData:[self.pictureManagedObject valueForKey:@"picture"]];
+        [[SDImageCache sharedImageCache] queryDiskCacheForKey:[[self.pictureManagedObject valueForKey:@"idPicture"] stringValue]
+                                                         done:^(UIImage *image, SDImageCacheType cacheType)
+        {
+            if (image)
+                {
+                self.imageView.image = image;
+                }
+        }];
+
         NSLog(@"array content %@", self.pictureContent);
         self.labelComment.text = [self.pictureManagedObject valueForKey:@"comment"];
         }
