@@ -28,15 +28,14 @@
 
 @implementation PictureViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
 
-    NSLog(@"work");
-
     self.appDelegate = [AppDelegate new];
-
     Model *m = [Model new];
-    [m dataPictures];
+
+    [m dataPictures]; // Метод получения данных по картинкам
 
     // Кнопки Navigation bar
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsUser)];
@@ -47,27 +46,23 @@
 {
     [super viewWillAppear:animated];
 
-    [self getCount]; // Получение количества картинок
-
-    [self pageViewStart]; // Создание Page View Controller
-
- //   self.indexCurrent = initialViewController.index;
-
+    [self getCount];        // Получение количества картинок
+    [self pageViewStart];   // Создание Page View Controller
 }
-
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
 
-    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];  // Получение настроек пользователя
 
     [self pageViewReload]; // Обновление PageViewController
 
     // Остановка таймера
     [self.timePic invalidate];
     self.timePic = nil;
-    
+
+    // Проверка на режим автоматического листания картинок
     if ([settings boolForKey:@"automaticSlide"])
     // Запуск таймера
     self.timePic = [NSTimer scheduledTimerWithTimeInterval:[settings integerForKey:@"timeInterval"]
@@ -77,21 +72,20 @@
                                                   repeats:YES];
 }
 
+// Метод переключения картинки при свайпе влево
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
     NSInteger index = ((ShowViewController *)viewController).index;
 
     if ((index == 0) || (index == NSNotFound))
-    {
         return nil;
-    }
 
     index--;
 
     return [self viewControllerAtIndex:index];
-    
 }
 
+// Метод переключения картинки при свайпе вправо
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
     NSInteger index = ((ShowViewController *)viewController).index;
@@ -99,9 +93,7 @@
     index++;
 
     if ((index + 1 > _countPictures) || (index == NSNotFound))
-    {
         return nil;
-    }
 
     return [self viewControllerAtIndex:index];
 }
@@ -109,23 +101,25 @@
 - (ShowViewController *)viewControllerAtIndex:(NSUInteger *)index
 {
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+
+    // Проверка на режим показа картинки "Показывать хаотично"
     if ([settings boolForKey:@"showCertain"] && _countPictures)
-    {
         index = (arc4random() % _countPictures);
-    }
+
     ShowViewController *showViewController = [[ShowViewController alloc] initWithNibName:@"ShowViewController" bundle:nil];
     showViewController.index = index;
     NSLog(@"index current %i", (int)index);
-   // self.indexCurrent = index;
 
     return showViewController;
 }
 
+// Количество картинок в PageViewController
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
 {
     return _countPictures;
 }
 
+// Индекс PageViewController
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
 {
     return 0;
@@ -134,13 +128,15 @@
 // Обработчик нажатия кнопок в AlertView
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
+    // Если нажали кнопку "Да"
     if (buttonIndex == 0)
     {
-        self.indexCurrent = [[self.pageController.viewControllers lastObject] index];
+        self.indexCurrent = [[self.pageController.viewControllers lastObject] index]; // Получение текущего индекса картинки
         NSLog(@"index alertView 1 %i", (int)self.indexCurrent);
-        NSString *test = [[alertView textFieldAtIndex:0] text]; // комментарий пользователя
+
+        NSString *test = [[alertView textFieldAtIndex:0] text]; // Комментарий пользователя
         NSError *error;
-        self.pictureManagedObject = [self.pictureContent objectAtIndex:self.indexCurrent];
+        self.pictureManagedObject = [self.pictureContent objectAtIndex:self.indexCurrent]; // Полечение данных из бд
 
         [self.pictureManagedObject setValue:@YES forKey:@"favourite"]; // Добавление картинки в favourite
         NSLog(@"bool test %@",[self.pictureManagedObject valueForKey:@"favourite"]);
@@ -157,11 +153,10 @@
 
         if (error)
         {
-            NSLog(@"Managed object context error: %@", error.description);  // описание ошибки сохранения в базу
+            NSLog(@"Managed object context error: %@", error.description);  // Описание ошибки сохранения в базу
         }
 
-        // Обновление комментария
-        [self pageViewReload];
+        [self pageViewReload]; // Обновление комментария
     }
     
 }
@@ -175,9 +170,9 @@
                                                      cancelButtonTitle:@"Да"
                                                      otherButtonTitles:@"Нет", nil];
 
-    alertViewChangeName.alertViewStyle = UIAlertViewStylePlainTextInput;
+    alertViewChangeName.alertViewStyle = UIAlertViewStylePlainTextInput; // Задание режима для AlertView с текстовым полем
 
-    [alertViewChangeName show];
+    [alertViewChangeName show]; // Показ AlertView
 }
 
 // Метод перехода в окно настроек
@@ -192,8 +187,8 @@
     [self.pageController.view removeFromSuperview];
     [self.pageController removeFromParentViewController];
 
+    // Инициализация ViewController с настройками пользователя, содержащего NavigationController
     SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
-
     UINavigationController *settingsNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
     settingsNavigationController.navigationBar.translucent = NO;
     [self.navigationController presentViewController:settingsNavigationController
@@ -212,38 +207,41 @@
 
     NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
     [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+
     self.indexCurrent++;
 }
 
 // Получение количества картинок
 - (void)getCount
 {
-    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults]; // Получение настроек пользователя
 
     // Запрос данных из базы
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"PicturesInfo"];
 
+    // Проверка на режим показа картинок "Показывать всё/только favourite"
     if ([settings boolForKey:@"showPicture"])
     {
-        NSPredicate *favouritesContent = [NSPredicate predicateWithFormat:@"favourite == YES"];
+        NSPredicate *favouritesContent = [NSPredicate predicateWithFormat:@"favourite == YES"]; // Выборка данных со значением "только favourite"
 
         [fetchRequest setPredicate:favouritesContent];
 
-        self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+        self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy]; // Получение бд
     }
     else
         self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
 
-
     NSLog(@"count viewWillApear massive %i", (int)[self.pictureContent count]);
-    _countPictures = (int)[self.pictureContent count];
+
+    _countPictures = (int)[self.pictureContent count]; // Получение количества картинок
 }
 
 // Создание Page View Controller
 - (void)pageViewStart
 {
-    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults]; // Получение настроек пользователя
 
+    // Проверка на режим анимации картинки
     if ([settings boolForKey:@"showAnimation"])
         self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     else
@@ -253,7 +251,7 @@
 
     [[self.pageController view] setFrame:[[self view] bounds]];
 
-    [self pageViewReload];
+    [self pageViewReload]; // Инициализация Page View Controller
 
     [self addChildViewController:_pageController];
     [self.view addSubview:_pageController.view];

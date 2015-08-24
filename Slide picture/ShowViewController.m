@@ -34,7 +34,7 @@
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"PicturesInfo"]; // Запрос в бд
 
-    // Проверка на режим показа "Показывать всё/только favourite"
+    // Проверка на режим показа картинок "Показывать всё/только favourite"
     if ([settings boolForKey:@"showPicture"])
     {
         NSPredicate *favouritesContent = [NSPredicate predicateWithFormat:@"favourite == YES"]; // Выборка данных со значением "только favourite"
@@ -44,7 +44,7 @@
         self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy]; // Получение бд
     }
     else
-        self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy]; // Получение бд
+        self.pictureContent = [[self.appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
 
     NSLog(@"count massive %i", (int)[self.pictureContent count]);
 
