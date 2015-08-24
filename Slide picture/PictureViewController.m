@@ -208,7 +208,8 @@
     NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
     [self.pageController setViewControllers:viewControllers
                                   direction:UIPageViewControllerNavigationDirectionForward
-                                   animated:YES completion:nil];
+                                   animated:YES
+                                 completion:nil];
 
     self.indexCurrent++;
 }
@@ -268,7 +269,10 @@
 
     NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
 
-    [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    [self.pageController setViewControllers:viewControllers
+                                  direction:UIPageViewControllerNavigationDirectionForward
+                                   animated:NO
+                                 completion:nil];
 
     NSLog(@"count testobject %i", (int)[initialViewController.pictureContent count]);
     NSLog(@"index log %i", (int)initialViewController.index);
