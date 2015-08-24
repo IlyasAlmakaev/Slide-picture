@@ -72,6 +72,8 @@
                                                   repeats:YES];
 }
 
+#pragma mark - pageViewController
+
 // Метод переключения картинки при свайпе влево
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
@@ -125,6 +127,8 @@
     return 0;
 }
 
+#pragma mark - alertView
+
 // Обработчик нажатия кнопок в AlertView
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
@@ -160,6 +164,8 @@
     }
     
 }
+
+#pragma mark - myMethods
 
 // Метод добавления картинки в favourites
 - (void)addFavourite
