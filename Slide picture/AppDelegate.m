@@ -20,15 +20,12 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    // create an instance of the view controller you want to be displayed first
+    // Инициализация основного ViewController содержащего NavigationController
     PictureViewController *pictureViewController = [[PictureViewController alloc] initWithNibName:@"PictureViewController" bundle:nil];
-
     UINavigationController *pictureNavigationController = [[UINavigationController alloc] initWithRootViewController:pictureViewController];
     pictureNavigationController.navigationBar.translucent = NO;
 
-    // set it as the root view controller of the application's window
     [self.window setRootViewController:pictureNavigationController];
-
     [self.window makeKeyAndVisible];
 
     return YES;
