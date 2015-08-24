@@ -108,11 +108,16 @@
     if ([settings boolForKey:@"showCertain"] && _countPictures)
         index = (arc4random() % _countPictures);
 
-    ShowViewController *showViewController = [[ShowViewController alloc] initWithNibName:@"ShowViewController" bundle:nil];
-    showViewController.index = index;
-    NSLog(@"index current %i", (int)index);
+    if (index < _countPictures)
+    {
+        ShowViewController *showViewController = [[ShowViewController alloc] initWithNibName:@"ShowViewController" bundle:nil];
+        showViewController.index = index;
+        NSLog(@"index current %i", (int)index);
 
-    return showViewController;
+        return showViewController;
+    }
+
+    return nil;
 }
 
 // Количество картинок в PageViewController
@@ -205,11 +210,13 @@
 // Метод перехода на следующую картинку
 - (void)nextShowViewController
 {
-    if (self.indexCurrent + 1 == _countPictures )
+    ShowViewController *initialViewController = [self viewControllerAtIndex:self.indexCurrent + 1];
+
+    if (self.indexCurrent+1 == _countPictures )
     {
         self.indexCurrent = 0;
+        initialViewController = [self viewControllerAtIndex:self.indexCurrent];
     }
-    ShowViewController *initialViewController = [self viewControllerAtIndex:self.indexCurrent + 1];
 
     NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
     [self.pageController setViewControllers:viewControllers
