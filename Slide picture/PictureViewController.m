@@ -206,7 +206,9 @@
     ShowViewController *initialViewController = [self viewControllerAtIndex:self.indexCurrent + 1];
 
     NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
-    [self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+    [self.pageController setViewControllers:viewControllers
+                                  direction:UIPageViewControllerNavigationDirectionForward
+                                   animated:YES completion:nil];
 
     self.indexCurrent++;
 }
